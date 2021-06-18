@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'dart:io';
 
+int accountBalance = 10000; // To be update with withdraw and deposit function
 String name;
 String emailAddress;
 String gender;
@@ -40,6 +41,8 @@ void getUserInformation() {
 
     // get user's age
     age = getUserAge();
+
+    updateUserAccountBalance();
 
     printResults();
 
@@ -89,5 +92,44 @@ void printResults() {
   print('My friend is $friend');
   print('My favorite Car is $favoriteCar');
   print('My age is $age');
+  print('Your account balance is $accountBalance');
   print('*********Results**************');
+}
+
+void updateUserAccountBalance() {
+  var response = getUserResponse('Do you want to use your account(Yes/No)?');
+  if (response != null) {
+    if (response.toLowerCase() == 'yes') {
+      var answer1 = getUserResponse(
+          'Do you want to deposit or withdraw from your account(deposit/withdraw)?');
+      if (answer1 != null && answer1.toLowerCase() == 'deposit') {
+        //TODO finish implementing deposit function provided below  so that a use can deposit money
+        deposit();
+      }
+
+      if (answer1 != null && answer1.toLowerCase() == 'withdraw') {
+        //TODO finish implementing withdraw function provided below so that a use can deposit money
+        withdraw();
+      }
+    } else {
+      print('You decided not to use your account');
+    }
+  } else {
+    print('You did not input anything');
+  }
+}
+
+void deposit() {
+  var depositAmount = getUserResponse('How much do you want to deposit?');
+  //TODO increase accountBalance by depositAmount
+  // Make sure depositAmount is a valid integer
+  // print new balance after depositing
+}
+
+void withdraw() {
+  //TODO get the amount that the user wants to withdraw
+  // store the amount in a variable called withdrawAmount
+  // make sure withdrawAmount is a valid integer
+  // make sure a user does not withdraw more than their accountBalance
+  // print new balance
 }
