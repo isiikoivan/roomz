@@ -4,14 +4,16 @@ the questions asked to the user.
 
 ## Getting the application
 Clone the repository with: 
-`git clone https://github.com/probuse/flutterLab.git`
+`git clone https://github.com/probuse/rooms.git`
 
 Then navigate to **rooms** folder with  `cd rooms`
 
 The application's entry point is `bin/`, library code
 in `lib/`, and unit test in `test/`.
 
-Run the application with `dart run bin/rooms.dart`
+Update dependencies with `dart pub get`
+
+Finally run the application with `dart run bin/rooms.dart`
 
 ## Dependencies
 - [Dart](https://dart.dev/)
