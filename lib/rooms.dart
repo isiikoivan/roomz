@@ -82,6 +82,7 @@ int getUserAge() {
 }
 
 void printResults() {
+  print('\n');
   print('**********Results*************');
   print('My name is $name');
   print('My email address is $emailAddress');
@@ -94,6 +95,7 @@ void printResults() {
   print('My age is $age');
   print('Your account balance is $accountBalance');
   print('*********Results**************');
+  print('');
 }
 
 void updateUserAccountBalance() {
@@ -105,11 +107,11 @@ void updateUserAccountBalance() {
       if (answer1 != null && answer1.toLowerCase() == 'deposit') {
         //TODO finish implementing deposit function provided below  so that a use can deposit money
         deposit();
-      }
-
-      if (answer1 != null && answer1.toLowerCase() == 'withdraw') {
+      } else if (answer1 != null && answer1.toLowerCase() == 'withdraw') {
         //TODO finish implementing withdraw function provided below so that a use can deposit money
         withdraw();
+      } else {
+        print('$answer1 is not one of the options');
       }
     } else {
       print('You decided not to use your account');
