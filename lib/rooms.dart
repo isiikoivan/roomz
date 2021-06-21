@@ -1,17 +1,18 @@
 import 'dart:core';
 
 import 'dart:io';
-
+import 'exceptions.dart';
 int accountBalance = 10000; // To be update with withdraw and deposit function
-String name;
-String emailAddress;
-String gender;
-String country;
-String favoriteFood;
-String hobby;
-String friend;
-String favoriteCar;
-int age;
+//int ?newbalance;
+String ?name;
+String ?emailAddress;
+String ?gender;
+String ?country;
+String ?favoriteFood;
+String ?hobby;
+String ?friend;
+String ?favoriteCar;
+int ?age;
 
 void getUserInformation() {
   while (true) {
@@ -52,7 +53,8 @@ void getUserInformation() {
 
 String getUserResponse(String question) {
   stdout.write('$question: \n');
-  return stdin.readLineSync();
+  //returns string 
+  return stdin.readLineSync().toString();
 }
 
 /// returns a list of foods from a string of foods separated by space
@@ -63,20 +65,25 @@ List<String> getFavoriteFoods(String favoriteFoodString) {
 var retries = 3;
 int getUserAge() {
   stdout.write('Enter your age: \n');
-  var response = stdin.readLineSync();
+  //coverting response into string  
+  var response = stdin.readLineSync().toString();
   int age;
-  try {
+  try 
+  {
+    //parse or change response from string to int
     age = int.parse(response);
     return age;
-  } catch (e) {
+  }
+   catch (e) 
+  {
     if (retries > 0) {
       retries -= 1;
       print('Invalid age, you have $retries retries left');
       return getUserAge();
     } else {
-      print(
-          'Invalid, you have used all your retries, your age wont be captured');
-      return null;
+      print('Invalid, you have used all your retries, your age wont be captured');
+     //entries are done then function returns option null  
+      return age=null??0;
     }
   }
 }
@@ -126,6 +133,22 @@ void deposit() {
   //TODO increase accountBalance by depositAmount
   // Make sure depositAmount is a valid integer
   // print new balance after depositing
+  int depositMoney = int.parse(depositAmount);
+  if (depositMoney != null && depositMoney > 0){
+      try{
+   //newbalance=accountBalance+depositMoney;
+    accountBalance=accountBalance+depositMoney;
+    print("successfully deposited :");
+   // stdout.write("Your new balance is $newbalance");
+    stdout.write("Your new balance is $accountBalance");
+
+      }
+      // catch(e)
+      on depositException{
+        
+      }
+     
+  }
 }
 
 void withdraw() {
@@ -134,4 +157,56 @@ void withdraw() {
   // make sure withdrawAmount is a valid integer
   // make sure a user does not withdraw more than their accountBalance
   // print new balance
+  //case 1
+  // var amountWithdrawtdout;
+  // stdout.write("Enter Amount For Withdraw");
+  // amountWithdrawtdout=stdin.readLineSync();
+  // case 2
+ 
+  var withdrawAmount = getUserResponse("How much do want to Withdraw");
+  if (withdrawAmount.isNotEmpty){
+    try{
+              int withdraw = int.parse(withdrawAmount);
+         if(withdraw > 0 && withdraw <= accountBalance){
+          //  newbalance=accountBalance-withdraw;
+          accountBalance=accountBalance-withdraw;
+          //  print("Your Have Successfull Withdrew $withdraw and have a balance of $newbalance");
+          print(
+          "Your Have Successfull Withdrew $withdraw and have a balance of $accountBalance"
+               );
+
+          }
+          else
+          {
+          print("INSUFFICIENT FUNDS");
+          throw new withdrawException();
+          }
+
+    }catch(e){
+      withdrawException();
+
+    }
+
+   }
+  else
+  {
+    stdout.write("invalid input amount");
+  }
+  
 }
+
+//     void set newbal1(int withdraw){
+//             newbalance = (accountBalance-withdraw);
+//           }
+  
+// int get newbal1{
+//   return newbalance;
+//   }
+//   void set newbal(int depositMoney){
+//             newbalance = (accountBalance+depositMoney);
+//           }
+  
+// int get newbal{
+//   return newbalance;
+//   }
+ 
